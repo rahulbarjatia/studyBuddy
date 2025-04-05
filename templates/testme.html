@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Me - Study Buddy</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 12px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    #questionBox {
+      width: 100%;
+      height: 300px;
+      padding: 15px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      resize: none;
+      background-color: #fdfdfd;
+      font-size: 16px;
+      margin-bottom: 25px;
+      overflow-y: auto;
+    }
+
+    .answer-box {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Test Me</h1>
+    <textarea id="questionBox" readonly></textarea>
+
+    <div class="answer-box">
+      <input type="text" id="answerInput" placeholder="Type your answer here...">
+      <button onclick="submitAnswer()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Fetch question from Flask backend on load
+    window.onload = function () {
+      fetch("http://127.0.0.1:5000/get-question")
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("questionBox").value = data.question;
+        })
+        .catch(error => {
+          console.error("Error fetching question:", error);
+          document.getElementById("questionBox").value = "Failed to load question.";
+        });
+    };
+
+
+    function submitAnswer() {
+      const answer = document.getElementById("answerInput").value;
+      if (answer.trim() === "") {
+        alert("Please type an answer!");
+        return;
+      }
+
+      console.log("Answer submitted:", answer);
+      window.location.href = "/testsh";
+      document.getElementById("answerInput").value = "";
+    }
+  </script>
+
+</body>
+</html>

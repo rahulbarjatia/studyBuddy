@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Buddy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      color: #fff;
+    }
+
+    nav {
+      background-color: #111;
+      display: flex;
+      align-items: center;
+      padding: 12px 30px;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .nav-left {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ff6f91;
+    }
+
+    .nav-buttons button {
+      margin-left: 12px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #ff6f91;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #ff6f91;
+      color: #111;
+    }
+
+    .main-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 60px 0;
+    }
+
+    .main-buttons button {
+      background: linear-gradient(135deg, #111, #333);
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.4rem;
+      padding: 20px 60px;
+      border: none;
+      border-radius: 20px;
+      margin: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .main-buttons button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff6f91aa;
+    }
+
+    .chatbox {
+      max-width: 800px;
+      margin: 0 auto 80px auto;
+      background: #1c1c1c;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 111, 145, 0.2);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chatbox h3 {
+      margin-bottom: 15px;
+      color: #ff6f91;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    .chatbox textarea {
+      width: 100%;
+      height: 250px;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 1rem;
+      resize: none;
+      background-color: #2c2c2c;
+      color: white;
+    }
+
+    .input-row {
+      display: flex;
+      margin-top: 15px;
+    }
+
+    .input-row input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px 0 0 10px;
+      background-color: #2c2c2c;
+      color: white;
+    }
+
+    .input-row button {
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: none;
+      background-color: #ff6f91;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .input-row button:hover {
+      background-color: #ff3e6c;
+    }
+
+    #mic {
+      margin-left: 6px;
+      background-color: #ff6f91;
+      border-radius: 50%;
+      border: none;
+      width: 44px;
+      height: 44px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    #mic:hover {
+      background-color: #ff3e6c;
+    }
+
+    @media screen and (max-width: 768px) {
+      .chatbox {
+        width: 95%;
+      }
+      .main-buttons button {
+        font-size: 1.1rem;
+        padding: 15px 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-left">Study Buddy</div>
+    <div class="nav-buttons">
+      <button>Home</button>
+      <button onclick="showjourney()">Journey</button>
+      <button onclick="showtest()">Test Me</button>
+    </div>
+  </nav>
+
+  <div class="main-buttons">
+    <button onclick="showjourney()">Journey</button>
+    <button onclick="showtest()">Test Me</button>
+    <button>Assessment</button>
+  </div>
+
+  <div class="chatbox">
+    <h3>Chat with Study Buddy</h3>
+    <textarea id="responseBox" placeholder="Response will appear here..." readonly></textarea>
+    <div class="input-row">
+      <input type="text" id="userInput" placeholder="Ask me anything..." />
+      <button onclick="sendMessage()">Send</button>
+      <button id="mic" onclick="startListening()">🎤</button>
+    </div>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("userInput");
+      const responseBox = document.getElementById("responseBox");
+      const userMessage = input.value;
+      if (!userMessage) return;
+
+      responseBox.value += "\nYou: " + userMessage;
+      input.value = "";
+
+      try {
+        const res = await fetch(`http://127.0.0.1:5000/work/${encodeURIComponent(userMessage)}`);
+        data = await res.json();
+        responseBox.value += "\nBuddy: " + data.message;
+      } catch (error) {
+        responseBox.value += "\nError talking to server.";
+        console.error(error);
+      }
+    }
+
+    function showjourney() {
+      window.location.href = "/journey";
+    }
+    function showtest() {
+      window.location.href = "/testsh";
+    }
+
+    function startListening() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.start();
+
+      recognition.onresult = (event) => {
+        const speechText = event.results[0][0].transcript;
+        document.getElementById("userInput").value = speechText;
+        sendMessage();
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Speech recognition error:", event.error);
+      };
+    }
+  </script>
+
+</body>
+</html>

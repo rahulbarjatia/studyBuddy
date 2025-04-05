@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Journey - Study Buddy</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(to right, #6a11cb, #ca25fc);
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .intro {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1.1rem;
+    }
+
+    .roadmap {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: 50px 20px;
+      flex-wrap: wrap;
+    }
+
+    .milestone {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 200px;
+      margin: 10px;
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .milestone h3 {
+      margin-top: 10px;
+    }
+
+    .chapters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .chapter-card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .chapter-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .chapter-card h4 {
+      margin: 0;
+    }
+
+    .chapter-card p {
+      font-size: 0.9rem;
+    }
+
+    .chapter-card a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #2575fc;
+      font-weight: bold;
+      transition: color 0.2s ease;
+    }
+
+    .chapter-card a:hover {
+      color: #6a11cb;
+    }
+
+    .tests {
+      background: #e4edff;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .test-btn {
+      margin: 10px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .test-btn:hover {
+      background: linear-gradient(to right, #2575fc, #6a11cb);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📚 Your Learning Journey</h1>
+  </header>
+
+  <p class="intro">Follow this roadmap and track your progress. You got this! 💪</p>
+
+  <!-- 🌍 Roadmap -->
+  <section class="roadmap">
+    <div class="milestone">
+      <h3>🧠 Chapter 1</h3>
+      <p>Introduction to Concepts</p>
+    </div>
+    <div class="milestone">
+      <h3>📘 Chapter 2</h3>
+      <p>Deep Dive into Topics</p>
+    </div>
+    <div class="milestone">
+      <h3>🚀 Chapter 3</h3>
+      <p>Application & Practice</p>
+    </div>
+    <div class="milestone">
+      <h3>🎯 Final Test</h3>
+      <p>Check your mastery</p>
+    </div>
+  </section>
+
+  <!-- 📘 Chapters Section -->
+  <section class="chapters">
+    <div class="chapter-card">
+      <h4>Chapter 1: Basics</h4>
+      <p>Learn the foundation of the subject with clear examples and exercises.</p>
+      <a href="#">📖 Read Chapter</a><br />
+      <a href="#">📝 Take Test</a>
+    </div>
+
+    <div class="chapter-card">
+      <h4>Chapter 2: Intermediate</h4>
+      <p>Dive into more complex scenarios and problem-solving techniques.</p>
+      <a href="#">📖 Read Chapter</a><br />
+      <a href="#">📝 Take Test</a>
+    </div>
+
+    <div class="chapter-card">
+      <h4>Chapter 3: Advanced</h4>
+      <p>Challenge yourself with real-world tasks and case studies.</p>
+      <a href="#">📖 Read Chapter</a><br />
+      <a href="#">📝 Take Test</a>
+    </div>
+  </section>
+
+  <!-- 🧪 Test Section -->
+  <section class="tests">
+    <h2>Take a Quick Test</h2>
+    <button class="test-btn">🧪 Chapter 1 Quiz</button>
+    <button class="test-btn">🧪 Chapter 2 Quiz</button>
+    <button class="test-btn">🧪 Final Assessment</button>
+  </section>
+
+</body>
+</html>
