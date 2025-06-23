@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Journey - Study Buddy</title>
+
+  <!-- Internal CSS Styles -->
   <style>
+    /* Basic global styling for layout and readability */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -12,6 +15,7 @@
       color: #333;
     }
 
+    /* Header banner styling with gradient background */
     header {
       background: linear-gradient(to right, #6a11cb, #ca25fc);
       padding: 20px;
@@ -19,12 +23,14 @@
       color: white;
     }
 
+    /* Introductory text styling */
     .intro {
       text-align: center;
       margin-top: 10px;
       font-size: 1.1rem;
     }
 
+    /* Roadmap container - holds key chapter milestones */
     .roadmap {
       display: flex;
       justify-content: space-around;
@@ -33,6 +39,7 @@
       flex-wrap: wrap;
     }
 
+    /* Each milestone represents a chapter or checkpoint */
     .milestone {
       background: white;
       padding: 20px;
@@ -48,6 +55,7 @@
       margin-top: 10px;
     }
 
+    /* Grid layout for detailed chapters */
     .chapters {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -55,6 +63,7 @@
       padding: 20px;
     }
 
+    /* Cards used to show each chapter's content + test link */
     .chapter-card {
       background: white;
       padding: 20px;
@@ -64,7 +73,7 @@
     }
 
     .chapter-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-5px); /* Visual feedback on hover */
       box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
 
@@ -89,12 +98,14 @@
       color: #6a11cb;
     }
 
+    /* Section for test call-to-actions */
     .tests {
       background: #e4edff;
       padding: 30px;
       text-align: center;
     }
 
+    /* Test button styling */
     .test-btn {
       margin: 10px;
       padding: 12px 25px;
@@ -111,21 +122,25 @@
       background: linear-gradient(to right, #2575fc, #6a11cb);
     }
 
+    /* Simple fade-in animation for cards */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
+
 <body>
 
+  <!-- Top header banner -->
   <header>
     <h1>📚 Your Learning Journey</h1>
   </header>
 
+  <!-- Supportive motivational text -->
   <p class="intro">Follow this roadmap and track your progress. You got this! 💪</p>
 
-  <!-- 🌍 Roadmap -->
+  <!-- 🚀 Visual Roadmap section showing major learning checkpoints -->
   <section class="roadmap">
     <div class="milestone">
       <h3>🧠 Chapter 1</h3>
@@ -145,7 +160,7 @@
     </div>
   </section>
 
-  <!-- 📘 Chapters Section -->
+  <!-- 📘 Chapters with links to reading material and tests -->
   <section class="chapters">
     <div class="chapter-card">
       <h4>Chapter 1: Basics</h4>
@@ -169,7 +184,7 @@
     </div>
   </section>
 
-  <!-- 🧪 Test Section -->
+  <!-- 🧪 Quick test section at bottom -->
   <section class="tests">
     <h2>Take a Quick Test</h2>
     <button class="test-btn">🧪 Chapter 1 Quiz</button>
