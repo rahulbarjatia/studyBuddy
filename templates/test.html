@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Me - Study Buddy</title>
+
+  <!-- Embedded CSS for layout and styling -->
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* Container box for the test interface */
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 12px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    /* Read-only textbox where the question appears */
+    #questionBox {
+      width: 100%;
+      height: 300px;
+      padding: 15px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      resize: none;
+      background-color: #fdfdfd;
+      font-size: 16px;
+      margin-bottom: 25px;
+      overflow-y: auto;
+    }
+
+    /* Layout for the answer input and button side-by-side */
+    .answer-box {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Test Me</h1>
+
+    <!-- Area where questions will be shown (loaded from backend) -->
+    <textarea id="questionBox" readonly></textarea>
+
+    <!-- Input box for user to type answer and send -->
+    <div class="answer-box">
+      <input type="text" id="answerInput" placeholder="Type your answer here...">
+      <button onclick="submitAnswer()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Fetches a question from the Flask backend when the page loads.
+     * This helps dynamically show a test question pulled via API.
+     */
+    window.onload = function () {
+      fetch("http://127.0.0.1:5000/get-question")  // Flask endpoint that returns a question
+        .then(response => response.json())
+        .then(data => {
+          // Display the received question in the textarea
+          document.getElementById("questionBox").value = data.question;
+        })
+        .catch(error => {
+          // If there's an error fetching the question
+          console.error("Error fetching question:", error);
+          document.getElementById("questionBox").value = "Failed to load question.";
+        });
+    };
+
+    /**
+     * Submits the user's answer.
+     * Right now, this function logs the answer and reloads the page.
+     * You can modify it to POST data to the backend in future versions.
+     */
+    function submitAnswer() {
+      const answer = document.getElementById("answerInput").value;
+
+      // Validation: Prevent submission of empty answers
+      if (answer.trim() === "") {
+        alert("Please type an answer!");
+        return;
+      }
+
+      // Log answer to console (placeholder for actual backend submission)
+      console.log("Answer submitted:", answer);
+
+      // Redirects to test page again — this can be replaced with feedback mechanism
+      window.location.href = "/testsh";
+
+      // Clear the input field after submission
+      document.getElementById("answerInput").value = "";
+    }
+  </script>
+
+</body>
+</html>
