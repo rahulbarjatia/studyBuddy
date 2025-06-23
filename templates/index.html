@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Study Buddy</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
 
+  <!-- Internal CSS for styling layout, UI elements and animations -->
+  <style>
+    /* Universal box-sizing and font styles */
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -16,6 +16,7 @@
       color: #fff;
     }
 
+    /* Navigation bar styling */
     nav {
       background-color: #111;
       display: flex;
@@ -25,12 +26,14 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
     }
 
+    /* Branding text on nav */
     .nav-left {
       font-size: 1.8rem;
       font-weight: bold;
       color: #ff6f91;
     }
 
+    /* Navigation buttons */
     .nav-buttons button {
       margin-left: 12px;
       background: #222;
@@ -48,6 +51,7 @@
       color: #111;
     }
 
+    /* Main action buttons layout */
     .main-buttons {
       display: flex;
       flex-direction: column;
@@ -73,6 +77,7 @@
       box-shadow: 0 0 15px #ff6f91aa;
     }
 
+    /* Chatbox container */
     .chatbox {
       max-width: 800px;
       margin: 0 auto 80px auto;
@@ -83,6 +88,7 @@
       animation: fadeInUp 1s ease forwards;
     }
 
+    /* Animation for smooth chatbox entrance */
     @keyframes fadeInUp {
       0% {
         opacity: 0;
@@ -113,6 +119,7 @@
       color: white;
     }
 
+    /* Input row containing text field + send + mic button */
     .input-row {
       display: flex;
       margin-top: 15px;
@@ -158,6 +165,7 @@
       background-color: #ff3e6c;
     }
 
+    /* Responsive styles */
     @media screen and (max-width: 768px) {
       .chatbox {
         width: 95%;
@@ -169,8 +177,10 @@
     }
   </style>
 </head>
+
 <body>
 
+  <!-- Navigation bar with site name and nav buttons -->
   <nav>
     <div class="nav-left">Study Buddy</div>
     <div class="nav-buttons">
@@ -180,12 +190,14 @@
     </div>
   </nav>
 
+  <!-- Main interaction buttons -->
   <div class="main-buttons">
     <button onclick="showjourney()">Journey</button>
     <button onclick="showtest()">Test Me</button>
     <button>Assessment</button>
   </div>
 
+  <!-- Chat section for user interaction -->
   <div class="chatbox">
     <h3>Chat with Study Buddy</h3>
     <textarea id="responseBox" placeholder="Response will appear here..." readonly></textarea>
@@ -197,6 +209,10 @@
   </div>
 
   <script>
+    /**
+     * Sends user's message to the backend server and receives a response.
+     * Why: This function powers the chatbot experience by linking front-end input with server AI response.
+     */
     async function sendMessage() {
       const input = document.getElementById("userInput");
       const responseBox = document.getElementById("responseBox");
@@ -207,6 +223,7 @@
       input.value = "";
 
       try {
+        // Fetch AI response from Flask backend
         const res = await fetch(`http://127.0.0.1:5000/work/${encodeURIComponent(userMessage)}`);
         data = await res.json();
         responseBox.value += "\nBuddy: " + data.message;
@@ -216,13 +233,26 @@
       }
     }
 
+    /**
+     * Navigates to the learning journey page
+     * Why: Enables users to start structured topic-based learning flow
+     */
     function showjourney() {
       window.location.href = "/journey";
     }
+
+    /**
+     * Navigates to the test interface
+     * Why: Gives access to mock tests or quizzes for evaluation
+     */
     function showtest() {
       window.location.href = "/testsh";
     }
 
+    /**
+     * Uses Web Speech API to convert speech input into text
+     * Why: Makes interaction more natural by allowing voice-based queries
+     */
     function startListening() {
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
       recognition.lang = "en-US";
